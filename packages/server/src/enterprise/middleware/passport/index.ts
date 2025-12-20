@@ -56,9 +56,9 @@ const _initializePassportMiddleware = async (app: express.Application) => {
         resave: false,
         saveUninitialized: false,
         cookie: {
-            secure: secureCookie,
+           secure: true,        
             httpOnly: true,
-            sameSite: 'lax' // Add sameSite attribute
+            sameSite: 'none'
         }
     }
 
@@ -324,26 +324,26 @@ export const setTokenOrCookies = (
         let resWithCookies = res
             .cookie('token', token, {
                 httpOnly: true,
-                secure: secureCookie,
-                sameSite: 'lax'
+                secure: true,
+                 sameSite: 'none'
             })
             .cookie('refreshToken', refreshToken, {
                 httpOnly: true,
-                secure: secureCookie,
-                sameSite: 'lax'
+                secure: true,
+                sameSite: 'none'
             })
         resWithCookies.redirect(dashboardUrl)
     } else {
         // Return the token as a cookie in our response.
         res.cookie('token', token, {
-            httpOnly: true,
-            secure: secureCookie,
-            sameSite: 'lax'
+           httpOnly: true,
+          secure: true,
+          sameSite: 'none'
         })
             .cookie('refreshToken', refreshToken, {
-                httpOnly: true,
-                secure: secureCookie,
-                sameSite: 'lax'
+               httpOnly: true,
+              secure: true,
+               sameSite: 'none'
             })
             .type('json')
             .send({ ...returnUser })
